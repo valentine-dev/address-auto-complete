@@ -13,4 +13,5 @@ UI application using `React` and `Redux` to:
 ## Production Deployment
 1. Run `npm run build` to build the app for production to the `build` folder.
 2. Deploy the application by copying all the files in `build` folder to a folder in production host.
+
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
