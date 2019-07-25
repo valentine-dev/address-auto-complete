@@ -1,5 +1,6 @@
 {
-  "name": "ams-ui",
+  "name": "address-auto-complete",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
