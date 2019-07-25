@@ -18,6 +18,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Two REST APIs to Consume
 1. FindAddress: 
+
 Sample request:
 `http://host:port/v1/resource/address?a=query&text=100 king`
 
@@ -210,6 +211,7 @@ Sample response:
 }
 ```
 2. GetAddressContent: 
+
 Sample request:
 `http://host:port/v1/resource/address?a=getcontent&id=fIiDB2wBPo2aCZqBfLfF`
 
