@@ -14,7 +14,7 @@ function AddressContent(props) {
          <Table striped bordered hover size="sm">
             <tbody>
                {Object.keys(addressObj).map((prop) =>
-                  <tr>
+                  <tr key={prop}>
                      <td>{prop}</td>
                      <td>{addressObj[prop]}</td>
                   </tr>
