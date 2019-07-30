@@ -5,11 +5,13 @@ import QuerySection from '../../components/addressQuery';
 import ResultSection from '../../components/addressList';
 import ContentSection from '../../components/addressContent';
 import StatusSection from '../../components/statusMessage';
+import ErrorBoundary from '../../utility/ErrorBoundary';
 
 class LivingWell extends Component {
    constructor(props) {
       super(props);
       this.state = {
+         allowQuery: true,
          query: '',
          addressList: [],
          message: '',
@@ -28,6 +30,7 @@ class LivingWell extends Component {
    }
 
    searchAddress = queryString => {
+      this.setState({ allowQuery: false });
       const query = process.env.REACT_APP_SEARCH_REST_API_URL_PREFIX + queryString;
       axios.get(query)
          .then(res => {
@@ -45,6 +48,7 @@ class LivingWell extends Component {
             console.log(err);
             this.setState({ addressList: [], message: 'ERROR occurred while searching.', addressContent: {} });
          });
+      this.setState({ allowQuery: true });
       console.log(this.state.message);
    }
 
@@ -77,9 +81,9 @@ class LivingWell extends Component {
 
    render() {
       return (
-         <Container style={ {margin : '2rem 0 0 0'}}>
+         <Container style={{ margin: '2rem 0 0 0' }}>
             <StatusSection message={this.state.message} />
-            <QuerySection handleChange={this.handleChange} query={this.state.query} />
+            <QuerySection handleChange={this.handleChange} query={this.state.query} allowQuery={this.state.allowQuery}/>
             <ResultSection queryResults={this.state.addressList} handleClick={this.handleClick} />
             <ContentSection addressContent={this.state.addressContent} />
          </Container>
@@ -87,4 +91,7 @@ class LivingWell extends Component {
    }
 }
 
-export default LivingWell;
+export default () => {
+   return <ErrorBoundary><LivingWell/></ErrorBoundary>;
+ };
+ 

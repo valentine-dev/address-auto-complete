@@ -10,7 +10,7 @@ function AddressContent(props) {
 
    return (
       <div>
-         <p>Address content:</p>
+         <p className="text-primary">Address content:</p>
          <Table striped bordered hover size="sm">
             <tbody>
                {Object.keys(addressObj).map((prop) =>

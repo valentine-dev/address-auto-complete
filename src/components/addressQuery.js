@@ -8,13 +8,20 @@ class AddressQuery extends Component {
    }
 
    render() {
+      let textValue = '';
+      if (this.props.allowQuery) {
+         textValue = this.props.query;
+      } else {
+         textValue = this.props.query + '...waiting...';
+      }
       return (
          <Form autoComplete="off" onSubmit={this.handleSubmit}>
             <Form.Group>
-               <Form.Label>Type in address:</Form.Label>
+               <Form.Label className="text-primary">Type in address:</Form.Label>
                <Form.Control type="text"
                   onChange={this.props.handleChange}
-                  value={this.props.query}
+                  value={textValue}
+                  readOnly={!this.props.allowQuery}
                   placeholder="Enter a string to search" />
             </Form.Group>
          </Form>
