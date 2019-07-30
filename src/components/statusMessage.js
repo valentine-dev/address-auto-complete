@@ -5,9 +5,9 @@ export default function StatusMsg(props) {
 
    const message = props.message;
    if (message.length > 0) {
-      let status = 'success';
+      let status = 'info';
       if (message.startsWith('ERROR')) {
-         status = 'danger';
+         status = 'warning';
       }
       return (
          <Alert variant={status}>
