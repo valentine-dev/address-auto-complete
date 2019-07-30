@@ -6,6 +6,14 @@ UI application using `React`, `React Router`, `React Bootstrap`, and `Redux` to:
 2. list the results;
 3. display the address content after one is chosen.
 
+## Features
+1. React:
+- Lazy loading
+- Suspense
+- Error boundary
+2. React Router
+3. React Bootstrap
+
 ## Development Environment Setup
 1. Copy all the files to the project folder, and run `npm install` to get all the dependencies.
 2. Execute `npm start` to run the app in the development mode.
