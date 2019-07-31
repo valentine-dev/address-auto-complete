@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Table from 'react-bootstrap/Table';
 
 function AddressContent(props) {
@@ -14,10 +14,19 @@ function AddressContent(props) {
          <Table striped bordered hover size="sm">
             <tbody>
                {Object.keys(addressObj).map((prop) =>
-                  <tr key={prop}>
-                     <td>{prop}</td>
-                     <td>{addressObj[prop]}</td>
-                  </tr>
+                  <Fragment key={prop}>
+                     {addressObj[prop] !== undefined && addressObj[prop] !== null && addressObj[prop].trim().length > 0 ?
+                        prop === 'id' ?
+                           (<tr>
+                              <td>{'LPDS ID'}</td>
+                              <td><a rel='noopener noreferrer' target='_blank' href={process.env.REACT_APP_FETCH_BY_LPDS_ID_URL_PREFIX + addressObj[prop]}>{addressObj[prop]}</a></td>
+                           </tr>)
+                           : (<tr>
+                              <td>{prop}</td>
+                              <td>{addressObj[prop]}</td>
+                           </tr>)
+                        : null}
+                  </Fragment>
                )}
             </tbody>
          </Table>

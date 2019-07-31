@@ -21,7 +21,7 @@ export default function Home() {
             <Card.Body>
                <Card.Title>Project Customization</Card.Title>
                <Card.Text>
-                  Test and verify usages of AMS REST UI in different projects.
+                  Test and verify usages of AMS REST API in different projects.
                </Card.Text>
                <DropdownButton id="dropdown-basic-button" variant="secondary" title="Pick a project">
                   <Dropdown.Item to={process.env.REACT_APP_ROUTER_ROOT + '/project-livingwell'} as={Link}>Living Well</Dropdown.Item>

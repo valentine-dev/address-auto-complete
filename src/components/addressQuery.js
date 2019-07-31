@@ -12,7 +12,7 @@ class AddressQuery extends Component {
       if (this.props.allowQuery) {
          textValue = this.props.query;
       } else {
-         textValue = this.props.query + '...waiting...';
+         textValue = this.props.query + '   ...waiting for response...';
       }
       return (
          <Form autoComplete="off" onSubmit={this.handleSubmit}>

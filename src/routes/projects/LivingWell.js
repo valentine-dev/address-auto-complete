@@ -43,12 +43,12 @@ class LivingWell extends Component {
             } else {
                this.setState({ addressList: [], message: 'Status-' + res.status + ': No results found.', addressContent: {} });
             }
+            this.setState({ allowQuery: true });
          })
          .catch(err => {
             console.log(err);
-            this.setState({ addressList: [], message: 'ERROR occurred while searching.', addressContent: {} });
+            this.setState({ allowQuery: true, addressList: [], message: 'ERROR occurred while searching.', addressContent: {} });
          });
-      this.setState({ allowQuery: true });
       console.log(this.state.message);
    }
 

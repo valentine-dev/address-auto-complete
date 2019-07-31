@@ -10,11 +10,11 @@ require('dotenv').config();
 class App extends Component {
    render() {
       return (
-        <Container>
-           {/* A JSX comment */}
-          <NavHeader />
-          <Routes />
-        </Container>
+         <Container>
+            {/* A JSX comment */}
+            <NavHeader />
+            <Routes />
+         </Container>
       );
    }
 }
