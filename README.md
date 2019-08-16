@@ -1,10 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# Address AutoComplete UI
+# Address AutoComplete & Feature Exploration UI
 UI application using `React`, `React Router`, `React Bootstrap`, and `Redux` to:
 1. search address as you type;
 2. list the results;
-3. display the address content after one is chosen.
+3. display the address content after one is chosen;
+4. explore different features.
 
 ## Features
 1. React:
