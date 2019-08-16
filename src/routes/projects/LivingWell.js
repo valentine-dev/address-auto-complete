@@ -11,11 +11,11 @@ class LivingWell extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         allowQuery: true,
          query: '',
          addressList: [],
          message: '',
-         addressContent: {}
+         addressContent: {},
+         loading: false
       }
    }
 
@@ -25,13 +25,13 @@ class LivingWell extends Component {
       if (queryString.length > 0) {
          this.searchAddress(queryString);
       } else {
-         this.setState({ query: '', addressList: [], message: '', addressContent: {} });
+         this.setState({ query: '', addressList: [], message: '', addressContent: {}, loading: false });
       }
    }
 
    searchAddress = queryString => {
-      this.setState({ allowQuery: false });
-      const query = process.env.REACT_APP_SEARCH_REST_API_URL_PREFIX + queryString;
+      this.setState({ addressList: [], message: 'Loading...', addressContent: {}, loading: true });
+      const query = process.env.REACT_APP_SEARCH_REST_API_URL_PREFIX + encodeURI(queryString);
       axios.get(query)
          .then(res => {
             console.log(res);
@@ -43,20 +43,22 @@ class LivingWell extends Component {
             } else {
                this.setState({ addressList: [], message: 'Status-' + res.status + ': No results found.', addressContent: {} });
             }
-            this.setState({ allowQuery: true });
+            this.setState({ loading: false });
+            console.log(this.state.message);
          })
          .catch(err => {
             console.log(err);
-            this.setState({ allowQuery: true, addressList: [], message: 'ERROR occurred while searching.', addressContent: {} });
+            this.setState({ loading: false, addressList: [], message: 'ERROR occurred while searching.', addressContent: {} });
+            console.log(this.state.message);
          });
-      console.log(this.state.message);
    }
 
 
 
    handleClick = (addressObj) => {
       this.setState({ query: addressObj.address });
-      const query = process.env.REACT_APP_FETCH_REST_API_URL_PREFIX + addressObj.id;
+      this.setState({ loading: true, message: 'Loading...' });
+      const query = process.env.REACT_APP_FETCH_REST_API_URL_PREFIX + encodeURI(addressObj.id);
       axios.get(query)
          .then(res => {
             console.log(res);
@@ -70,20 +72,23 @@ class LivingWell extends Component {
             } else {
                this.setState({ addressContent: {}, addressList: [], message: 'Status-' + res.status + ': No results found.' });
             }
+            this.setState({ loading: false });
+            console.log(this.state.message);
          })
          .catch(err => {
             console.log(err);
             this.setState({ addressContent: {}, addressList: [], message: 'ERROR occurred while fectching address content.' });
+            this.setState({ loading: false });
+            console.log(this.state.message);
          });
-      console.log(this.state.message);
    }
 
 
    render() {
       return (
          <Container style={{ margin: '2rem 0 0 0' }}>
-            <StatusSection message={this.state.message} />
-            <QuerySection handleChange={this.handleChange} query={this.state.query} allowQuery={this.state.allowQuery}/>
+            <StatusSection message={this.state.message} loading={this.state.loading}/>
+            <QuerySection handleChange={this.handleChange} query={this.state.query} loading={this.state.loading} />
             <ResultSection queryResults={this.state.addressList} handleClick={this.handleClick} />
             <ContentSection addressContent={this.state.addressContent} />
          </Container>
@@ -92,6 +97,5 @@ class LivingWell extends Component {
 }
 
 export default () => {
-   return <ErrorBoundary><LivingWell/></ErrorBoundary>;
- };
- 
+   return <ErrorBoundary><LivingWell /></ErrorBoundary>;
+};

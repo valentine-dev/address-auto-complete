@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 
 function AddressContent(props) {
    const addressObj = props.addressContent;
+ 
    if (Object.keys(addressObj).length === 0 && addressObj.constructor === Object) {
       // check whether address object is empty: {}
       return null;

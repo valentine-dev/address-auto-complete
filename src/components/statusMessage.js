@@ -1,4 +1,5 @@
 import Alert from 'react-bootstrap/Alert';
+import Spinner from 'react-bootstrap/Spinner';
 import React from 'react';
 
 export default function StatusMsg(props) {
@@ -11,7 +12,8 @@ export default function StatusMsg(props) {
       }
       return (
          <Alert variant={status}>
-            {props.message}
+            {message.startsWith('Loading...') && <Spinner animation="border" variant="success" size="sm" />}
+            {' ' + props.message}
          </Alert>
       );
    } else {

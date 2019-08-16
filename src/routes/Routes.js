@@ -6,7 +6,9 @@ import WaitForLoading from '../utility/WaitForLoading';
 
 const Home = lazy(() => import('./Home'));
 const LivingWell = lazy(() => import('./projects/LivingWell'));
-const Features = lazy(() => import('./Features'));
+const MaxResultsFeature = lazy(() => import('./features/MaxResults'));
+const CountryFeature = lazy(() => import('./features/Country'));
+const SearchTypeFeature = lazy(() => import('./features/SearchType'));
 
 function NoMatch({ location }) {
    return (
@@ -21,7 +23,9 @@ export default function Routes() {
       <WaitForLoading>
          <Switch>
             <Route exact path={process.env.REACT_APP_ROUTER_ROOT + '/index.html'} component={Home} />
-            <Route path={process.env.REACT_APP_ROUTER_ROOT + '/features'} component={Features} />
+            <Route path={process.env.REACT_APP_ROUTER_ROOT + '/feature-searchType'} component={SearchTypeFeature} />
+            <Route path={process.env.REACT_APP_ROUTER_ROOT + '/feature-country'} component={CountryFeature} />
+            <Route path={process.env.REACT_APP_ROUTER_ROOT + '/feature-maxResults'} component={MaxResultsFeature} />
             <Route path={process.env.REACT_APP_ROUTER_ROOT + '/project-livingwell'} component={LivingWell} />
             <Route component={NoMatch} />
          </Switch>
