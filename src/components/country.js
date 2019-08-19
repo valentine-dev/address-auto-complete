@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 
-class Country extends Component {
-   render() {
+function Country(props)  {
       return (
          <Form.Group>
             <Form.Label className="text-primary">Country or Territory:</Form.Label>
-            <Form.Control as="select" onChange={this.props.handleChange} value={this.props.selected}
-               autoFocus={this.props.hasFocus} disabled={this.props.loading}>
+            <Form.Control as="select" onChange={props.handleChange} value={props.selected}
+               autoFocus={props.hasFocus} disabled={props.loading}>
                <option value='ASM'>American Samoa</option>
                <option value='AND'>Andorra</option>
                <option value='ARG'>Argentina</option>
@@ -90,7 +90,19 @@ class Country extends Component {
             </Form.Control>
          </Form.Group >
       );
-   }
+}
+
+Country.propTypes = {
+   handleChange: PropTypes.func.isRequired,
+   hasFocus: PropTypes.bool.isRequired,
+   loading: PropTypes.bool.isRequired,
+   selected: PropTypes.string.isRequired
+}
+
+Country.defaultProps = {
+   hasFocus: false,
+      loading: false,
+      selected: 'CAN'
 }
 
 export default Country;

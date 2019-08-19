@@ -1,19 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 
-class SearchString extends Component {
-   render() {
-      return (
-         <Form.Group>
-            <Form.Label className="text-primary">String to Search:</Form.Label>
-            <Form.Control type="text"
-               autoFocus={this.props.hasFocus}
-               onChange={this.props.handleChange}
-               readOnly={this.props.loading}
-               placeholder="Enter a string to search" />
-         </Form.Group>
-      );
-   }
+function SearchString(props) {
+   return (
+      <Form.Group>
+         <Form.Label className="text-primary">String to Search:</Form.Label>
+         <Form.Control type="text"
+            autoFocus={props.hasFocus}
+            onChange={props.handleChange}
+            readOnly={props.loading}
+            placeholder="Enter a string to search" />
+      </Form.Group>
+   );
+}
+
+SearchString.propTypes = {
+   handleChange: PropTypes.func.isRequired,
+   hasFocus: PropTypes.bool.isRequired,
+   loading: PropTypes.bool.isRequired
+}
+
+SearchString.defaultProps = {
+   hasFocus: false,
+   loading: false
 }
 
 export default SearchString;

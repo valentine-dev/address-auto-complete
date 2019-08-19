@@ -39,22 +39,19 @@ class Feature extends Component {
    }
 
    handleMaxResultsChange = (e) => {
-      const value = e.target.value.trim();
-      if (value.length > 0) {
-         this.setState({ maxResults: value });
-      }
+      const value = e.target.value;
+      this.setState({ maxResults: value });
       this.setState({ addressContent: {}, addressList: [], message: '', loading: false });
    }
 
    handleCountryChange = (e) => {
-      const value = e.target.value.trim();
+      const value = e.target.value;
       this.setState({ country: value });
       this.setState({ addressContent: {}, addressList: [], message: '', loading: false });
    }
 
-   handleSearchTypeChange = (e) => {
-      const value = e.target.value.trim();
-      this.setState({ searchType: value });
+   handleSelectionChange = (e) => {
+      this.setState({ [e.target.name]: e.target.value });
       this.setState({ addressContent: {}, addressList: [], message: '', loading: false });
    }
 
@@ -86,8 +83,7 @@ class Feature extends Component {
          })
          .catch(err => {
             console.log(err);
-            this.setState({ allowQuery: true, addressList: [], message: 'ERROR occurred while searching.', addressContent: {} });
-            this.loading = false;
+            this.setState({ allowQuery: true, loading: false, addressList: [], message: 'ERROR occurred while searching.', addressContent: {} });
             console.log(this.state.message);
          });
    }
@@ -122,46 +118,20 @@ class Feature extends Component {
    }
 
    render() {
-      let searchTypeHasFocus, maxResultsHasFocus, countryHasFocus, searchStringHasFocus;
-      switch (this.props.focus) {
-         case 'SearchType':
-            searchTypeHasFocus = true;
-            maxResultsHasFocus = false;
-            countryHasFocus = false;
-            searchStringHasFocus = false;
-            break;
-         case 'Country':
-            searchTypeHasFocus = false;
-            maxResultsHasFocus = false;
-            countryHasFocus = true;
-            searchStringHasFocus = false;
-            break;
-         case 'MaxResults':
-            searchTypeHasFocus = false;
-            maxResultsHasFocus = true;
-            countryHasFocus = false;
-            searchStringHasFocus = false;
-            break;
-         default:
-            searchTypeHasFocus = false;
-            maxResultsHasFocus = false;
-            countryHasFocus = false;
-            searchStringHasFocus = true;
-      }
       return (
-         <Container style={{ margin: '2rem 0 2rem 0' }}>
+         <Container>
             <Alert variant='primary'>
                <Alert.Heading>Feature - {this.props.heading}</Alert.Heading>
                {this.props.children}
                <hr />
                <p>Please choose different values to explore this feature.</p>
             </Alert>
-            <StatusSection message={this.state.message} loading={this.props.loading} />
+            <StatusSection message={this.state.message} />
             <Form autoComplete="off" onSubmit={this.handleSubmit}>
-               <SearchStringComponent handleChange={this.handleSearchStringChange} hasFocus={searchStringHasFocus} loading={this.state.loading} />
-               <SearchTypeComponent handleChange={this.handleSearchTypeChange} selected={this.state.searchType} hasFocus={searchTypeHasFocus} loading={this.state.loading}/>
-               <MaxResultsComponent handleChange={this.handleMaxResultsChange} selected={this.state.maxResults} hasFocus={maxResultsHasFocus} loading={this.state.loading}/>
-               <CountryComponent handleChange={this.handleCountryChange} selected={this.state.country} hasFocus={countryHasFocus} loading={this.state.loading}/>
+               <SearchStringComponent handleChange={this.handleSearchStringChange} loading={this.state.loading} />
+               <SearchTypeComponent handleChange={this.handleSelectionChange} selected={this.state.searchType} hasFocus={this.props.focus==='SearchType'} loading={this.state.loading}/>
+               <MaxResultsComponent handleChange={this.handleSelectionChange} selected={this.state.maxResults} hasFocus={this.props.focus==='MaxResults'} loading={this.state.loading}/>
+               <CountryComponent handleChange={this.handleSelectionChange} selected={this.state.country} hasFocus={this.props.focus==='Country'} loading={this.state.loading}/>
                {this.state.allowQuery && <Button variant="primary" type="submit">Search</Button>}
             </Form>
             <Container style={{ margin: '2rem 0 2rem 0' }}>
