@@ -22,6 +22,7 @@ export default function Routes() {
    return (
       <WaitForLoading>
          <Switch>
+            <Route exact path={process.env.REACT_APP_ROUTER_ROOT + '/'} component={Home} />
             <Route exact path={process.env.REACT_APP_ROUTER_ROOT + '/index.html'} component={Home} />
             <Route path={process.env.REACT_APP_ROUTER_ROOT + '/feature-searchType'} component={SearchTypeFeature} />
             <Route path={process.env.REACT_APP_ROUTER_ROOT + '/feature-country'} component={CountryFeature} />
