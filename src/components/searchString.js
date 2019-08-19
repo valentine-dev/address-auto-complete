@@ -7,6 +7,7 @@ function SearchString(props) {
       <Form.Group>
          <Form.Label className="text-primary">String to Search:</Form.Label>
          <Form.Control type="text"
+            name="searchString"
             autoFocus={props.hasFocus}
             onChange={props.handleChange}
             readOnly={props.loading}

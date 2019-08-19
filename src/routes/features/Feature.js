@@ -17,9 +17,9 @@ class Feature extends Component {
       super(props);
       this.state = {
          allowQuery: false,
-         country: 'CAN',
-         searchType: 'match',
-         maxResults: 20,
+         country: process.env.REACT_APP_FEATURE_3_DEFAULT,
+         searchType: process.env.REACT_APP_FEATURE_1_DEFAULT,
+         maxResults: process.env.REACT_APP_FEATURE_2_DEFAULT,
          searchString: '',
          addressList: [],
          message: '',
@@ -28,30 +28,14 @@ class Feature extends Component {
       }
    }
 
-   handleSearchStringChange = (e) => {
-      const queryString = e.target.value.trim();
-      if (queryString.length > 0) {
-         this.setState({ allowQuery: true, searchString: queryString });
-      } else {
-         this.setState({ allowQuery: false, searchString: '' });
-      }
-      this.setState({ addressContent: {}, addressList: [], message: '', loading: false });
-   }
-
-   handleMaxResultsChange = (e) => {
-      const value = e.target.value;
-      this.setState({ maxResults: value });
-      this.setState({ addressContent: {}, addressList: [], message: '', loading: false });
-   }
-
-   handleCountryChange = (e) => {
-      const value = e.target.value;
-      this.setState({ country: value });
-      this.setState({ addressContent: {}, addressList: [], message: '', loading: false });
-   }
-
    handleSelectionChange = (e) => {
-      this.setState({ [e.target.name]: e.target.value });
+      if (e.target.type === 'text' && e.target.name === 'searchString') {
+         const str = e.target.value.trim();
+         str.length > 0 ? this.setState({ allowQuery: true, searchString: str }) :
+            this.setState({ allowQuery: false, searchString: '' });
+      } else {
+         this.setState({ [e.target.name]: e.target.value });
+      }
       this.setState({ addressContent: {}, addressList: [], message: '', loading: false });
    }
 
@@ -128,16 +112,16 @@ class Feature extends Component {
             </Alert>
             <StatusSection message={this.state.message} />
             <Form autoComplete="off" onSubmit={this.handleSubmit}>
-               <SearchStringComponent handleChange={this.handleSearchStringChange} loading={this.state.loading} />
-               <SearchTypeComponent handleChange={this.handleSelectionChange} selected={this.state.searchType} hasFocus={this.props.focus==='SearchType'} loading={this.state.loading}/>
-               <MaxResultsComponent handleChange={this.handleSelectionChange} selected={this.state.maxResults} hasFocus={this.props.focus==='MaxResults'} loading={this.state.loading}/>
-               <CountryComponent handleChange={this.handleSelectionChange} selected={this.state.country} hasFocus={this.props.focus==='Country'} loading={this.state.loading}/>
+               <SearchStringComponent handleChange={this.handleSelectionChange} loading={this.state.loading} />
+               <SearchTypeComponent handleChange={this.handleSelectionChange} hasFocus={this.props.focus === 'SearchType'} loading={this.state.loading} />
+               <MaxResultsComponent handleChange={this.handleSelectionChange} hasFocus={this.props.focus === 'MaxResults'} loading={this.state.loading} />
+               <CountryComponent handleChange={this.handleSelectionChange} hasFocus={this.props.focus === 'Country'} loading={this.state.loading} />
                {this.state.allowQuery && <Button variant="primary" type="submit">Search</Button>}
             </Form>
             <Container style={{ margin: '2rem 0 2rem 0' }}>
-               {this.state.addressList.length > 0 && <Form.Label className="text-primary">Search Results: </Form.Label> } 
-               {this.state.addressList.length > 0 && <ResultSection queryResults={this.state.addressList} handleClick={this.handleClick} /> }
-               {Object.keys(this.state.addressContent).length > 0  && <ContentSection addressContent={this.state.addressContent} />}
+               {this.state.addressList.length > 0 && <Form.Label className="text-primary">Search Results: </Form.Label>}
+               {this.state.addressList.length > 0 && <ResultSection queryResults={this.state.addressList} handleClick={this.handleClick} />}
+               {Object.keys(this.state.addressContent).length > 0 && <ContentSection addressContent={this.state.addressContent} />}
             </Container>
          </Container>
       );

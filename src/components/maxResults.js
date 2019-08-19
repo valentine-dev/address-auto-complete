@@ -5,9 +5,9 @@ import Form from 'react-bootstrap/Form';
 function MaxResults(props) {
    return (
       <Form.Group>
-         <Form.Label className="text-primary">Maximum Number of Results ({props.selected}):</Form.Label>
-         <Form.Control type="number" required min="1" max="30"
-            onChange={props.handleChange} value={props.selected}
+         <Form.Label className="text-primary">Maximum Number of Results:</Form.Label>
+         <Form.Control type="number" required min="1" max="30" name="maxResults"
+            onChange={props.handleChange} defaultValue={parseInt(process.env.REACT_APP_FEATURE_2_DEFAULT)}
             autoFocus={props.hasFocus} readOnly={props.loading} />
       </Form.Group>
    );
@@ -16,14 +16,12 @@ function MaxResults(props) {
 MaxResults.propTypes = {
    handleChange: PropTypes.func.isRequired,
    hasFocus: PropTypes.bool.isRequired,
-   loading: PropTypes.bool.isRequired,
-   selected: PropTypes.number.isRequired
+   loading: PropTypes.bool.isRequired
 }
 
 MaxResults.defaultProps = {
    hasFocus: false,
-   loading: false,
-   selected: 10
+   loading: false
 }
 
 export default MaxResults;
