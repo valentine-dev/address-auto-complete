@@ -1,10 +1,10 @@
 {
   "name": "address-auto-complete",
-  "description": "Address Management Services UI",
+  "description": "Address Management Services UI - Search",
   "main": "index.js",
   "author": "Valentine Wu <valentine.business@gmail.com>",
   "homepage": ".",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",

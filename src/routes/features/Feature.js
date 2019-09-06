@@ -7,6 +7,7 @@ import Alert from 'react-bootstrap/Alert';
 import SearchTypeComponent from '../../components/searchType';
 import MaxResultsComponent from '../../components/maxResults';
 import CountryComponent from '../../components/country';
+import SourceComponent from '../../components/source';
 import SearchStringComponent from '../../components/searchString';
 import ResultSection from '../../components/addressList';
 import ContentSection from '../../components/addressContent';
@@ -20,6 +21,7 @@ class Feature extends Component {
          country: process.env.REACT_APP_FEATURE_3_DEFAULT,
          searchType: process.env.REACT_APP_FEATURE_1_DEFAULT,
          maxResults: process.env.REACT_APP_FEATURE_2_DEFAULT,
+         src: process.env.REACT_APP_FEATURE_4_DEFAULT,
          searchString: '',
          addressList: [],
          message: '',
@@ -42,7 +44,8 @@ class Feature extends Component {
    handleSubmit = (e) => {
       e.preventDefault();
       const queryString = this.state.searchString + '&country=' + this.state.country
-         + '&searchType=' + this.state.searchType + '&maxResults=' + this.state.maxResults;
+         + '&searchType=' + this.state.searchType + '&maxResults=' + this.state.maxResults
+         + '&src=' + this.state.src;
       this.searchAddress(encodeURI(queryString));
    }
 
@@ -116,6 +119,7 @@ class Feature extends Component {
                <SearchTypeComponent handleChange={this.handleSelectionChange} hasFocus={this.props.focus === 'SearchType'} loading={this.state.loading} />
                <MaxResultsComponent handleChange={this.handleSelectionChange} hasFocus={this.props.focus === 'MaxResults'} loading={this.state.loading} />
                <CountryComponent handleChange={this.handleSelectionChange} hasFocus={this.props.focus === 'Country'} loading={this.state.loading} />
+               <SourceComponent handleChange={this.handleSelectionChange} hasFocus={this.props.focus === 'Source'} loading={this.state.loading} />
                {this.state.allowQuery && <Button variant="primary" type="submit">Search</Button>}
             </Form>
             <Container style={{ margin: '2rem 0 2rem 0' }}>

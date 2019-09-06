@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Alert from 'react-bootstrap/Alert';
 import Container from 'react-bootstrap/Container';
 import QuerySection from '../../components/addressQuery';
 import ResultSection from '../../components/addressList';
@@ -22,10 +23,10 @@ class LivingWell extends Component {
    handleChange = (e) => {
       this.setState({ query: e.target.value });
       const queryString = e.target.value.trim();
-      if (queryString.length > 0) {
+      if (queryString.length > parseInt(process.env.REACT_APP_UI_NUMBER_OF_CHARS_ENTERED_BEFORE_SEARCH)) {
          this.searchAddress(queryString);
       } else {
-         this.setState({ query: '', addressList: [], message: '', addressContent: {}, loading: false });
+         this.setState({ addressList: [], message: '', addressContent: {}, loading: false });
       }
    }
 
@@ -86,8 +87,14 @@ class LivingWell extends Component {
 
    render() {
       return (
-         <Container style={{ margin: '2rem 0 0 0' }}>
-            <StatusSection message={this.state.message} loading={this.state.loading}/>
+         <Container>
+            <Alert variant='primary'>
+               <Alert.Heading>Project - {process.env.REACT_APP_PROJECT_1}</Alert.Heading>
+               Here, a fixed setting of features is chosen.
+               <hr />
+               <p>Search will start after entering {process.env.REACT_APP_UI_NUMBER_OF_CHARS_ENTERED_BEFORE_SEARCH} non-blank characters.</p>
+            </Alert>
+            <StatusSection message={this.state.message} loading={this.state.loading} />
             <QuerySection handleChange={this.handleChange} query={this.state.query} loading={this.state.loading} />
             <ResultSection queryResults={this.state.addressList} handleClick={this.handleClick} />
             <ContentSection addressContent={this.state.addressContent} />

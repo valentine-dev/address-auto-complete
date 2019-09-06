@@ -18,7 +18,7 @@ export default function Home() {
                   <Dropdown.Item to={process.env.REACT_APP_ROUTER_ROOT + '/feature-searchType'} as={Link}>{process.env.REACT_APP_FEATURE_1}</Dropdown.Item>
                   <Dropdown.Item to={process.env.REACT_APP_ROUTER_ROOT + '/feature-maxResults'} as={Link}>{process.env.REACT_APP_FEATURE_2}</Dropdown.Item>
                   <Dropdown.Item to={process.env.REACT_APP_ROUTER_ROOT + '/feature-country'} as={Link}>{process.env.REACT_APP_FEATURE_3}</Dropdown.Item>
-                  <Dropdown.Item href="#/action-1" disabled>{process.env.REACT_APP_FEATURE_4}</Dropdown.Item>
+                  <Dropdown.Item to={process.env.REACT_APP_ROUTER_ROOT + '/feature-src'} as={Link}>{process.env.REACT_APP_FEATURE_4}</Dropdown.Item>
                </DropdownButton>               
             </Card.Body>
          </Card>
